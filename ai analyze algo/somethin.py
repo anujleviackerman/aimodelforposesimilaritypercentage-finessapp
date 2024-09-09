@@ -235,7 +235,6 @@ class CameraApp(App):
          # Draw keypoints and edges on the image
         draw_connections(frame1, keypoints_with_scores, EDGES, 0.01)
         draw_keypoints(frame1, keypoints_with_scores, 0.01)
-        print(self.list_of_angles)
         # Display the result and close window on specific key press
         
         # Convert the frame from BGR to RGB
@@ -261,8 +260,7 @@ class CameraApp(App):
         # Open the default camera
         self.capture = cv2.VideoCapture(0)  
 
-        # Bind the keyboard event
-        EventLoop.window.bind(on_key_down=self.on_key_down)
+        
 
         return layout
 
@@ -285,12 +283,11 @@ class CameraApp(App):
         # Rendering 
         draw_connections(frame, keypoints_with_scores2, EDGES, 0.4)
         draw_keypoints(frame, keypoints_with_scores2, 0.4)
-        print(self.list_of_angles2)
+        
 
         #checking if angles are same
         #x=checkifsetsaresame.final(list_of_angles2,list_of_angles,94,70)
         #print(x)
-        print(self.list_of_angles2)
         #print(list_of_angles)
         if ret:
             # Convert the frame from BGR to RGB
@@ -303,18 +300,20 @@ class CameraApp(App):
             image_texture.blit_buffer(buf, colorfmt='rgb', bufferfmt='ubyte')
             # Update the camera feed widget with the new texture
             self.camera_feed.texture = image_texture
-
-    def on_key_down(self, window, key, scancode, codepoint, modifier):
-        # Check if the key pressed is 'q'
+            # Check if the key pressed is 'q'
         #checking if angles are same
-        x=checkifsetsaresame.final(self.list_of_angles2,self.list_of_angles,94,70)
+        x=checkifsetsaresame.final(self.list_of_angles2,self.list_of_angles,80,80)
+        
+
         d = checksiffilepresent.check_file_exists("outputs",str(self.count+1)+'.png')
         print(x)
+        print(self.list_of_angles2)
+        print(self.list_of_angles)
         
-        if d and (codepoint == 'q' or x):
+        if d and (x):
             self.count=self.count+1
             self.alternate_image()
-        elif (not d) and(codepoint == 'q' or x) :
+        elif (not d) and(x) :
             print("done")
             print("done")
 
@@ -329,6 +328,9 @@ class CameraApp(App):
             print("done")
             self.static_image.source = "images.png"
             self.static_image.reload()
+
+    
+        
         
 
 
@@ -353,7 +355,6 @@ class CameraApp(App):
          # Draw keypoints and edges on the image
         draw_connections(frame1, keypoints_with_scores, EDGES, 0.01)
         draw_keypoints(frame1, keypoints_with_scores, 0.01)
-        print(self.list_of_angles)
         # Display the result and close window on specific key press
         
         # Convert the frame from BGR to RGB
